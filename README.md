@@ -2,6 +2,9 @@
 
 Start the drawing with `npm start` and navigate to `localhost:3000`
 
+![image](example-image.png)
+
+
 ## NPM Dependencies
 
 ```
