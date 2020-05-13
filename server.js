@@ -1,29 +1,33 @@
-// THE SERVER
+// THE SERVER CODE
 console.log("app is running");
 
 let express = require('express');
 let app = express();
 let server = app.listen(3000);
 
-// host everything in that public directory
+// host everything in the public directory
 app.use(express.static('public'));
 
+// load socket io
 let socket = require('socket.io');
 let io = socket(server);
 
-// first event, new connection
+// listen to the event when someone connects to the server
+// this creates a new socket
 io.on('connection', newConnection);
 
-// a new conncetions creates a socket
+// check out the created socket
 function newConnection(socket){
   console.log("new conncection: ", socket.id)
 
-  // recieve from client
-  socket.on('mouse', mouseMsg);
-  // do something with the data
-  function mouseMsg(data){
-    // send the message back out! (so others can recieve it) (exluding me)
+  // recieve data from client via the socket
+  socket.on('mouse', mouseData);
+
+  // handle the recieved socket data
+  function mouseData(data){
+    // send the data back out! 
+    // (so others can recieve it) (exluding me)
     socket.broadcast.emit('mouse', data)
-    console.log(data);
+    // console.log(data);
   }
 }

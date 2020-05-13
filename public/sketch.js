@@ -1,4 +1,4 @@
-// THE CLIENT
+// THE CLIENT CODE
 let socket;
 
 function setup() {
@@ -12,29 +12,25 @@ function setup() {
 }
 
 // draw the incoming data
-function newDrawing(data){
+function newDrawing(data) {
 	noStroke();
 	fill(0, 0, 255);
 	ellipse(data.x, data.y, 59, 50)
 }
 
-// draw data that also goes out
-function mouseDragged(){
-	console.log(mouseX, mouseY);
-
-	let data = {
-		x: mouseX, 
-		y: mouseY
-	}
-	// send from client to server
-	socket.emit('mouse', data);
-
+// draw data in the client & send it to the server
+function mouseDragged() {
+	// draw something 
 	noStroke();
 	fill(255, 0, 0);
 	ellipse(mouseX, mouseY, 50, 50);
 
-
-}
-
-function draw() {
+	// console.log(mouseX, mouseY);
+	// collect the drawing data
+	let data = {
+		x: mouseX,
+		y: mouseY
+	}
+	// send data from client to server
+	socket.emit('mouse', data);
 }
